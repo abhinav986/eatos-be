@@ -12,7 +12,7 @@ const catchAsync = require('../utils/catchAsync');
 // upload file
 const uploadFile = catchAsync(async (req, res) => {
   res.json({'message': 'File uploaded successfully',
-   'path': 'uploads/' + req.file.filename, 'status': 1});
+   'path': req.file.filename, 'status': true});
 });
 
 

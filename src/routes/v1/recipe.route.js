@@ -19,6 +19,10 @@ router
   .route('user/:userId')
   .get(  recipeController.getRecipesByUserId);
 
+  router
+  .route('/filter')
+  .post( recipeController.filterRecipe)
+
 
 
 module.exports = router;

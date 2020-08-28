@@ -153,6 +153,31 @@ const deleteRecipeByRecipeId = catchAsync(async (req, res) => {
   });
 });
 
+const filterRecipe = catchAsync(async (req, res) => {
+ let filter = req.body;
+ console.log(filter);
+  db_eatos.recipes.find(filter ,function(err, result){
+    if(err){
+      res.status(500).send({
+        "status": false,
+        "message":"Server error encountered."
+      });
+    }
+    if(result.length>0){
+
+      res.status(200).send( {
+        "status": true,
+        "message": 'Recipes Data',"data" : result});
+    }else{
+      res.status(200).send({
+        "status": true,
+        "message":"No Recipes Data found.",
+        "data" : []
+      });
+    }
+  });
+});
+
 module.exports = {
   createRecipe,
   getAllRecipes,
@@ -160,4 +185,5 @@ module.exports = {
   getRecipeByRecipeId,
   updateRecipeByRecipeId,
   deleteRecipeByRecipeId,
+  filterRecipe
 };

@@ -79,7 +79,7 @@ const getRecipesByUserId = catchAsync(async (req, res) => {
 
 // get Recipes by recipe id, param recipeId must
 const getRecipeByRecipeId = catchAsync(async (req, res) => {
-  if(req.params.RecipeId ){
+  if(req.params.recipeId ){
     var o_id = new ObjectId(req.params.recipeId);
   }
   db_eatos.recipes.findOne({"_id": o_id},function(err, result){
@@ -89,18 +89,10 @@ const getRecipeByRecipeId = catchAsync(async (req, res) => {
         "message":"Server error encountered."
       });
     }
-    if(result.length>0){
-
       res.status(200).send( {
         "status": true,
         "message": 'Recipes Data',"data" : result});
-    }else{
-      res.status(200).send({
-        "status": true,
-        "message":"No Recipes Data found.",
-        "data" : []
-      });
-    }
+
   });
 });
 

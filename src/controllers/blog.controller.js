@@ -55,7 +55,7 @@ const getAllBlogs = catchAsync(async (req, res) => {
 
 // get Blogs by user_id, param userId must
 const getBlogsByUserId = catchAsync(async (req, res) => {
-  db_eatos.blogs.findOne({"user_id": req.params.userId },function(err, result){
+  db_eatos.blogs.find({"user_id": req.params.userId },function(err, result){
     if(err){
       res.status(500).send({
         "status": false,
@@ -89,18 +89,11 @@ const getBlogByBlogId = catchAsync(async (req, res) => {
         "message":"Server error encountered."
       });
     }
-    if(result.length>0){
 
       res.status(200).send( {
         "status": true,
         "message": 'Blogs Data',"data" : result});
-    }else{
-      res.status(200).send({
-        "status": true,
-        "message":"No Blogs Data found.",
-        "data" : []
-      });
-    }
+
   });
 });
 

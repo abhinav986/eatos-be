@@ -16,7 +16,7 @@ router
   .delete(  blogController.deleteBlogByBlogId);
 
 router
-  .route('user/:userId')
+  .route('/user/:userId')
   .get(  blogController.getBlogsByUserId);
 
 

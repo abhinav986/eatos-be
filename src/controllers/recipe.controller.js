@@ -11,9 +11,11 @@ var db_eatos = mongojs('eatos', ['recipes']);
 
 // create Recipe user_id must, rest all are optional
 const createRecipe = catchAsync(async (req, res) => {
+  var message = 'Recipe Created Successfully!!';
  if(req.body._id){
   var o_id = new ObjectId(req.body._id);
   req.body._id =o_id;
+   message = 'Recipe Updated Successfully!!';
 }
 db_eatos.recipes.save(req.body,function(err,response){
   if(err){
@@ -24,7 +26,7 @@ db_eatos.recipes.save(req.body,function(err,response){
   }
   res.status(httpStatus.CREATED).send({
   "status": true,
-  "message": 'Recipe Created Successfully!!',
+  "message": message,
   "data" : response});
 });
 
@@ -55,7 +57,7 @@ const getAllRecipes = catchAsync(async (req, res) => {
 
 // get Recipes by user_id, param userId must
 const getRecipesByUserId = catchAsync(async (req, res) => {
-  db_eatos.recipes.findOne({"user_id": req.params.userId },function(err, result){
+  db_eatos.recipes.find({"user_id": req.params.userId },function(err, result){
     if(err){
       res.status(500).send({
         "status": false,
@@ -120,7 +122,7 @@ const updateRecipeByRecipeId = catchAsync(async (req, res) => {
 
 // delete Recipes by userId
 const deleteRecipeByRecipeId = catchAsync(async (req, res) => {
-  if(req.params.RecipeId ){
+  if(req.params.recipeId ){
     var o_id = new ObjectId(req.params.recipeId);
   }
   db_eatos.recipes.remove({"_id": o_id },function(err, result){
@@ -133,12 +135,12 @@ const deleteRecipeByRecipeId = catchAsync(async (req, res) => {
     if(result){
       res.status(200).send( {
         "status": true,
-        "message": 'Recipes Deleted',
+        "message": 'Recipe Deleted Successfully!!',
         "data" : result});
     }else{
       res.status(200).send({
       "status": true,
-      "message":"Not able to delete Recipes.",
+      "message":"Not able to delete Recipe.",
       "data" : []
       });
     }

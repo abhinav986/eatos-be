@@ -16,7 +16,7 @@ router
   .delete(  recipeController.deleteRecipeByRecipeId);
 
 router
-  .route('user/:userId')
+  .route('/user/:userId')
   .get(  recipeController.getRecipesByUserId);
 
   router
